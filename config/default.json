@@ -1,3 +1,4 @@
 {
-    "mongoURI" : "mongodb+srv://fary:pass@cluster0.piqghc6.mongodb.net/"
+    "mongoURI" : "mongodb+srv://fary:pass@cluster0.o8y2tr5.mongodb.net/",
+    "jwtSecret" : "tokenVarrier"
 }

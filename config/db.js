@@ -8,6 +8,7 @@ const connectDB = async () => {
     try {
       const conn = await mongoose.connect(db, {
         // useNewUrlParser: true,
+        dbName: 'devPortal',
       });
       console.log(`MongoDB Connected: {conn.connection.host}`);
     } catch (error) {

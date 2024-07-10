@@ -6,13 +6,11 @@ var bodyParser = require('body-parser')
 
 
 app.use(express.json({extended: false}));
-
-
 const port = process.env.por || 5000;
 
 
-//connect to database
-// connectDB();
+// connect to database
+connectDB();
 
 app.get('/', (req, res) => { 
     res.send('Hello World!')
