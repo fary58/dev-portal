@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon .server.js"
+    "start": "nodemon .server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run start\" \"npm run client\""  
   },
   "author": "Farrukh",
   "license": "ISC",
@@ -23,5 +25,8 @@
     "mongoose": "^8.4.4",
     "nodemon": "^3.1.4",
     "normalize-url": "npm:@esm2cjs/normalize-url@^8.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
