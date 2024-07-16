@@ -8,6 +8,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  CLEAR_PROFILE,
 } from "./types";
 
 /*
@@ -59,7 +60,7 @@ export const register = (formData) => async (dispatch) => {
 
 export const login = (data) => async (dispatch) => {
   try {
-    console.log(data)
+    console.log(data);
     const res = await api.post("/auth", data);
 
     dispatch({
@@ -82,4 +83,11 @@ export const login = (data) => async (dispatch) => {
 };
 
 // Logout
-export const logout = () => ({ type: LOGOUT });
+export const logout = () => (dispatch) => {
+  dispatch({
+    type: LOGIN_FAIL,
+  });
+  dispatch({
+    type: CLEAR_PROFILE,
+  });
+};

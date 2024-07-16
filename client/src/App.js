@@ -1,27 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from "react";
 import Landing from "../src/components/layout/Landing";
 import Navbar from "../src/components/layout/Navbar";
 import Register from "../src/components/auth/Register";
 import Login from "../src/components/auth/Login";
 import { Provider } from "react-redux";
-import setAuthToken from './utils/setAuthToken';
+import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
-import { loadUser } from './actions/auth';
+import { loadUser } from "./actions/auth";
 import Alert from "./components/layout/Alert";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Switch,
-} from "react-router-dom";
+import PrivateRoute from "./components/routing/PrivateRoute";
+import Dashboard from "./components/Dashboard/Dashboard";
+import createProfile from "./components/create-profile/createProfile";
+
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import "./App.css";
 
 const App = () => {
-
   useEffect(() => {
     // check for token in LS when app first runs
-    if (localStorage.token) { 
+    if (localStorage.token) {
       // if there is a token set axios headers for all requests
       setAuthToken(localStorage.token);
     }
@@ -35,17 +33,30 @@ const App = () => {
     // });
   }, []);
 
-
   return (
     <Provider store={store}>
       <Router>
-        <Navbar />
-        <Alert />
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="register" element={<Register />} />
-          <Route path="login" element={<Login />} />
-        </Routes>
+        <Fragment>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Landing />} />
+          </Routes>
+          <section className="container">
+            <Alert />
+            <Routes>
+              <Route path="register" element={<Register />} />
+              <Route path="login" element={<Login />} />
+              <Route
+                path="dashboard"
+                element={<PrivateRoute component={Dashboard} />}
+              />
+              <Route
+                path="create-profile"
+                element={<PrivateRoute component={createProfile} />}
+              />
+            </Routes>
+          </section>
+        </Fragment>
       </Router>
     </Provider>
   );
