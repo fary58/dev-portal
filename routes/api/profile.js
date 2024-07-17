@@ -5,6 +5,8 @@ const checkObjectId = require("../../middleware/checkObjectId");
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
 const { check, validationResult } = require("express-validator");
+const normalizeUrl = require("@esm2cjs/normalize-url").default;
+
 
 module.exports = router;
 
@@ -59,7 +61,7 @@ router.post("/",
       user: req.user.id,
       website:
         website && website !== ""
-          ? normalize(website, { forceHttps: true })
+          ? normalizeUrl(website, { forceHttps: true })
           : "",
       skills: Array.isArray(skills)
         ? skills

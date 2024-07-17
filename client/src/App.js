@@ -9,8 +9,8 @@ import Dashboard from './components/dashboard/Dashboard';
 import ProfileForm from './components/profile-forms/ProfileForm';
 import AddExperience from './components/profile-forms/AddExperience';
 import AddEducation from './components/profile-forms/AddEducation';
-// import Profiles from './components/profiles/Profiles';
-// import Profile from './components/profile/Profile';
+import Profiles from './components/profiles/Profiles';
+import Profile from './components/profile/Profile';
 // import Posts from './components/posts/Posts';
 // import Post from './components/post/Post';
 // import NotFound from './components/layout/NotFound';
@@ -51,8 +51,8 @@ const App = () => {
           <Route path="/" element={<Landing />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
-          {/* <Route path="profiles" element={<Profiles />} /> */}
-          {/* <Route path="profile/:id" element={<Profile />} /> */}
+          <Route path="profiles" element={<Profiles />} />
+          <Route path="profile/:id" element={<Profile />} />
           <Route
             path="dashboard"
             element={<PrivateRoute component={Dashboard} />}
