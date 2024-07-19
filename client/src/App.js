@@ -11,8 +11,8 @@ import AddExperience from './components/profile-forms/AddExperience';
 import AddEducation from './components/profile-forms/AddEducation';
 import Profiles from './components/profiles/Profiles';
 import Profile from './components/profile/Profile';
-// import Posts from './components/posts/Posts';
-// import Post from './components/post/Post';
+import Posts from './components/posts/Posts';
+import Post from './components/post/Post';
 // import NotFound from './components/layout/NotFound';
 import PrivateRoute from './components/routing/PrivateRoute';
 import { LOGOUT } from './actions/types';
@@ -24,7 +24,6 @@ import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 
 import './App.css';
-
 const App = () => {
   useEffect(() => {
     // check for token in LS when app first runs
@@ -73,9 +72,9 @@ const App = () => {
             path="add-education"
             element={<PrivateRoute component={AddEducation} />}
           />
-          {/* <Route path="posts" element={<PrivateRoute component={Posts} />} />
-          <Route path="posts/:id" element={<PrivateRoute component={Post} />} /> */}
-          {/* <Route path="/*" element={<NotFound />} /> */}
+          <Route path="posts" element={<PrivateRoute component={Posts} />} />
+          <Route path="posts/:id" element={<PrivateRoute component={Post} />} /> 
+           {/* <Route path="/*" element={<NotFound />} /> */}
         </Routes>
       </Router>
     </Provider>

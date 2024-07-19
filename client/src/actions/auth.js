@@ -1,5 +1,6 @@
 import api from "../utils/api";
 import { setAlert } from "./alert";
+import setAuthToken from "../utils/setAuthToken";
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -8,7 +9,6 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_PROFILE,
 } from "./types";
 
 /*
@@ -20,6 +20,10 @@ import {
 
 // Load User
 export const loadUser = () => async (dispatch) => {
+  if (localStorage.token) {
+    // if there is a token set axios headers for all requests
+    setAuthToken(localStorage.token);
+  }
   try {
     const res = await api.get("/auth");
 
@@ -36,14 +40,18 @@ export const loadUser = () => async (dispatch) => {
 
 // Register User
 export const register = (formData) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
   try {
-    const res = await api.post("/users", formData);
+    const res = await api.post("/users", formData, config);
 
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data,
     });
-
     dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
@@ -58,15 +66,15 @@ export const register = (formData) => async (dispatch) => {
   }
 };
 
-export const login = (data) => async (dispatch) => {
+// Login User
+export const login = (body) => async (dispatch) => {
   try {
-    console.log(data);
-    const res = await api.post("/auth", data);
-
+    const res = await api.post("/auth", body);
     dispatch({
-      type: REGISTER_SUCCESS,
+      type: LOGIN_SUCCESS,
       payload: res.data,
     });
+    api.defaults.headers.common["x-auth-token"] = res.data;
 
     dispatch(loadUser());
   } catch (err) {
@@ -83,11 +91,4 @@ export const login = (data) => async (dispatch) => {
 };
 
 // Logout
-export const logout = () => (dispatch) => {
-  dispatch({
-    type: LOGIN_FAIL,
-  });
-  dispatch({
-    type: CLEAR_PROFILE,
-  });
-};
+export const logout = () => ({ type: LOGOUT });
